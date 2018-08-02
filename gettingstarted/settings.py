@@ -39,7 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'profiles_api',
+    'corsheaders',
+    'django_extensions',
+    'requests',
+    'requests_toolbelt',
+    'lxml',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +58,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+
+)
 
 ROOT_URLCONF = 'gettingstarted.urls'
 
@@ -121,5 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'profiles_api.UserProfile'
 
 django_heroku.settings(locals())
