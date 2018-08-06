@@ -20,7 +20,8 @@ from lxml import etree
 
 from . import pydio_response_serializers as pydio_serializers
 
-baseurl = 'http://192.168.1.27:8082/pydio-core-8.0.2/api/'
+#baseurl = 'http://192.168.1.27:8082/pydio-core-8.0.2/api/'
+baseurl = 'drive.grmcinc.com/api/'
 
 def XMLDeserializer(xmldata):
     """ test XML deserialization """
