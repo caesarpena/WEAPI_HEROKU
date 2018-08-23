@@ -90,12 +90,14 @@ class HandleTokens:
         
         ListUserPks = APITokenModel.objects.filter(user_profile=user, API=validated_data['API'])
 
+        print(validated_data['Private'])
+
         if not ListUserPks.count(): 
             models.UserPks(
                 user_profile = user,
                 API = validated_data['API'],
-                Token = validated_data['Token'],
-                Private = validated_data['Private'],
+                token = validated_data['Token'],
+                private = validated_data['Private'],
             ).save()           
             return None
 
