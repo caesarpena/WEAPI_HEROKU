@@ -152,6 +152,7 @@ class LoginViewSet(viewsets.ViewSet, ObtainAuthToken):
             response = super(LoginViewSet, self).post(request, *args, **kwargs)
             token = Token.objects.get(key=response.data['token'])
             queryset = models.UserProfile.objects.get(id=token.user_id)
+            
             json  = {   'token': token.key, 
                         'id': token.user_id,
                         'name': queryset.name,
@@ -209,6 +210,16 @@ class GetProjectAssetsViewSet(viewsets.ViewSet):
 
         return Response(response.content)
 
+class GetPydioSignedToken(viewsets.ViewSet):
+    """ Handles retrieving a list of assets by project ID from the PYDIO API """
+    authentication_classes = (TokenAuthentication,)
+    # serializer_class = serializers.UserAssetsSerializer
+
+    def create(self, request):
+
+        r = P.SignPydioRequest(url = request.data['url'], user = self.request.user)
+
+        return Response(r)
 
 class DownloadAssetViewSet(viewsets.ViewSet):
     """ Handles Downloading a single asset from a given workspace using the PYDIO API """

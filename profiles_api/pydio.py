@@ -72,8 +72,8 @@ def SignPydioRequest(url, user=None, API=None):
         ListPks = models.OtherAPIAdmin.objects.get(api=API)
         PKsInstance = ListPks
 
-    print(PKsInstance.token)
-    print(PKsInstance.private)
+    # print(PKsInstance.token)
+    # print(PKsInstance.private)
 
     data = {}
     data['options'] = 'al'
@@ -90,7 +90,7 @@ class HandleTokens:
         
         ListUserPks = APITokenModel.objects.filter(user_profile=user, API=validated_data['API'])
 
-        print(validated_data['Private'])
+        # print(validated_data['Private'])
 
         if not ListUserPks.count(): 
             models.UserPks(
@@ -102,7 +102,7 @@ class HandleTokens:
             return None
 
         TokenInstance = ListUserPks.first()
-        print(TokenInstance.token)
+        # print(TokenInstance.token)
         TokenInstance.token = validated_data['Token']
         TokenInstance.private = validated_data['Private']
         TokenInstance.save()
