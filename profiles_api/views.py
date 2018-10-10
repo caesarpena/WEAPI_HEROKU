@@ -210,6 +210,20 @@ class GetProjectAssetsViewSet(viewsets.ViewSet):
 
         return Response(response.content)
 
+class GetPathContentViewSet(viewsets.ViewSet):
+    """ Handles retrieving a list of all the contents inside a given path starting by the workspace's name"""
+    authentication_classes = (TokenAuthentication,)
+    # serializer_class = serializers.UserAssetsSerializer
+
+    def create(self, request):
+
+        response = P.PydioGetPathContent(request.data['path'], self.request.user)
+
+        if(response.status_code != _status.HTTP_200_OK or response.reason != 'OK'):
+            return Response(response.reason, status=response.status_code)
+
+        return Response(response.content)
+
 class GetPydioSignedToken(viewsets.ViewSet):
     """ Handles retrieving a list of assets by project ID from the PYDIO API """
     authentication_classes = (TokenAuthentication,)

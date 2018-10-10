@@ -78,6 +78,7 @@ def SignPydioRequest(url, user=None, API=None):
     data = {}
     data['options'] = 'al'
     data['auth_token'] = PKsInstance.token
+    
     data['auth_hash'] = PydioSdk.generate_auth_hash(url, PKsInstance.token, PKsInstance.private)
     return data
 
@@ -131,9 +132,21 @@ class HandleAdminTokens:
         TokenInstance.save()
         return None
 
+"""Given a workspace id retrieves all subfolders and files from workspace/. Using pydio v1 API """
 def GetProjectAssets(projectid, user):
     
     url = baseurl+projectid+"/ls/?format=xml"
+
+    PARAMS = SignPydioRequest(url = url, user = user)
+
+    response = requests.get(url=url, params=PARAMS)
+
+    return (response)
+
+"""Given a path retrieves all subfolders and files from that directory. Using pydio v2 API """
+def PydioGetPathContent(path, user):
+    
+    url = baseurl+"/v2/fs/"+path+"/?children=a&format=json"
 
     PARAMS = SignPydioRequest(url = url, user = user)
 

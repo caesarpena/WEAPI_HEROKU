@@ -10,6 +10,7 @@ router.register('profile', views.UserProfileViewSet)
 router.register('projects', views.UserProjectsViewSet)
 router.register('external-api-admin', views.APIAdminProfileViewSet)
 router.register('project-assets', views.GetProjectAssetsViewSet, base_name='project-assets')
+router.register('list-path-content', views.GetPathContentViewSet, base_name='list-path-content')
 router.register('download-asset', views.DownloadAssetViewSet, base_name='download-asset')
 router.register('sign-pydio-request', views.GetPydioSignedToken, base_name='sign-pydio-request')
 
