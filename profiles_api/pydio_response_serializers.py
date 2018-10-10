@@ -28,6 +28,7 @@ class TestSerializer(serializers.Serializer):
         message = NestedSerializer1(source='*')
         reload = NestedSerializer2(source='*')
 
+
 class ResponseTreeContent(serializers.Serializer):
     message = serializers.CharField()
     # update_checkboxes = serializers.CharField(required = False, allow_blank= True)
