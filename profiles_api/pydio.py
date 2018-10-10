@@ -146,7 +146,9 @@ def GetProjectAssets(projectid, user):
 """Given a path retrieves all subfolders and files from that directory. Using pydio v2 API """
 def PydioGetPathContent(path, user):
     
-    url = baseurl+"/v2/fs/"+path+"/?children=a&format=json"
+    url = baseurl+"v2/fs/"+path+"/?children=a&format=json"
+    
+    print(url)
 
     PARAMS = SignPydioRequest(url = url, user = user)
 
