@@ -167,20 +167,20 @@ class LoginViewSet(viewsets.ViewSet, ObtainAuthToken):
             return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserProjectsViewSet(viewsets.ModelViewSet):
+class UserReposViewSet(viewsets.ModelViewSet):
     """ Handle creating and updating projects """
 
     authentication_classes = (TokenAuthentication,)
     #permission_classes = (permissions.GetOwnData,)
-    serializer_class = serializers.UserProjectSerializer
-    queryset = models.UserProjects.objects.all()
+    serializer_class = serializers.UserRepositoriesSerializer
+    queryset = models.UserRepositories.objects.all()
 
     def perform_create(self, serializer):
         user = self.request.user
-        projectname = self.request.data.get('project_name')
+        reponame = self.request.data.get('name')
         """ Sets the user profile to the logged in user """
         """ First create a workspace in Pydio """
-        response = P.CreateUserWorkspace(wname=projectname,user=str(user))
+        response = P.CreateUserWorkspace(wname=reponame,user=str(user))
         # validated_data['workspace_id'] = response.get('workspace')
         serializer.save(user_profile=user, workspace_id=response.get('workspace'))
     
@@ -194,7 +194,7 @@ class UserProjectsViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         user = self.request.user
-        return models.UserProjects.objects.filter(user_profile=user.id)        
+        return models.UserRepositories.objects.filter(user_profile=user.id)        
 
 class GetProjectAssetsViewSet(viewsets.ViewSet):
     """ Handles retrieving a list of assets by project ID from the PYDIO API """
@@ -214,7 +214,6 @@ class GetPathContentViewSet(viewsets.ViewSet):
     """ Handles retrieving a list of all the contents inside a given path starting by the workspace's name"""
     authentication_classes = (TokenAuthentication,)
     # serializer_class = serializers.UserAssetsSerializer
-
     def create(self, request):
 
         response = P.PydioGetPathContent(request.data['path'], self.request.user)

@@ -7,7 +7,7 @@ from . import views
 
 router = DefaultRouter()
 router.register('profile', views.UserProfileViewSet)
-router.register('projects', views.UserProjectsViewSet)
+router.register('repos', views.UserReposViewSet)
 router.register('external-api-admin', views.APIAdminProfileViewSet)
 router.register('project-assets', views.GetProjectAssetsViewSet, base_name='project-assets')
 router.register('list-path-content', views.GetPathContentViewSet, base_name='list-path-content')

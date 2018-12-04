@@ -27,7 +27,7 @@ class NestedSerializer2(serializers.Serializer):
 class TestSerializer(serializers.Serializer):
         message = NestedSerializer1(source='*')
         reload = NestedSerializer2(source='*')
-
+        
 
 class ResponseTreeContent(serializers.Serializer):
     message = serializers.CharField()

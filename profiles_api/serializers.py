@@ -124,26 +124,26 @@ class UserLoginSerializer(serializers.ModelSerializer):
       
         return data
 
-class UserProjectSerializer(serializers.ModelSerializer):
+class UserRepositoriesSerializer(serializers.ModelSerializer):
     """ Serializer for users projects objects """
-    project_name = CharField(required = False, allow_blank= True)
+    name = CharField(required = False, allow_blank= True)
     class Meta:
-        model = models.UserProjects
-        fields = ('id', 'user_profile', 'project_name', 
+        model = models.UserRepositories
+        fields = ('id', 'user_profile', 'name', 
                 'last_update', 'workspace_id', 'created_on',)
         extra_kwargs = {'user_profile': {'read_only': True}}
 
     def validate(self, data):
-        project_name = data.get("project_name", None)
+        name = data.get("name", None)
 
-        if not project_name:
+        if not name:
             raise ValidationError("A project name is required")
-        project = models.UserProjects.objects.filter(
-            Q(project_name=project_name) 
+        project = models.UserRepositories.objects.filter(
+            Q(name=name) 
         ).distinct()
         if project.exists():        
             raise ValidationError("A project with this name already exist, Please try a different name.")
-        count = Counter(project_name)
+        count = Counter(name)
         count = sum(dict(count).values())
         if(count <= 3):
             raise ValidationError("The project name should have more than 3 characters")

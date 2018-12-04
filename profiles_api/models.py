@@ -82,10 +82,10 @@ class OtherAPIAdmin(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
-class UserProjects(models.Model):
+class UserRepositories(models.Model):
     """ Represent the projects that the user can create """
-    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE, null=False, db_column = "user_id", related_name = "user_projects")
-    project_name = models.CharField(max_length=255)
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE, null=False, db_column = "user_id", related_name = "user_repositories")
+    name = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     workspace_id = models.CharField(max_length=255, blank=True, null=True)
     last_update = models.DateTimeField(auto_now_add=True, null=True)
@@ -93,11 +93,11 @@ class UserProjects(models.Model):
     
     is_active = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = ['project_name']
+    REQUIRED_FIELDS = ['name']
 
     def __str__(self):
         """ django uses this when it needs to convert the object to a string """
-        return self.project_name
+        return self.name
 
     #objects = UserProjectManager()
 
