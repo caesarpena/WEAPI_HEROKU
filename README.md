@@ -1,6 +1,8 @@
-# Python: Getting Started
+# Python: API
 
 A barebones Django app, which can easily be deployed to Heroku.
+
+The project aim to serve as a middleware between the UI client and Cloud storage server
 
 This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
 
